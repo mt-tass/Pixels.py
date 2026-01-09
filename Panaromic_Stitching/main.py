@@ -23,7 +23,7 @@ def main():
     if result is None:
         print("panaromic stitching failed , try different threshold values")
     else:
-        output_path = "data/results/final_panaroma.jpg"
+        output_path = "data/results/final_panorama.jpg"
         cv2.imwrite(output_path, result)
         print("panaromic image saved in results")
         cv2.imshow("panaroma",result)
