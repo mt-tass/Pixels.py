@@ -4,3 +4,36 @@
 using namespace std;
 using namespace cv;
 
+void sobel_x(const string &path){
+    Mat img = imread(path);
+    Mat grey;
+    cvtColor(img,grey,COLOR_BGR2GRAY);
+    Mat sobelx_kernel = (Mat_<float>(3,3) << 
+        -1,0,1,
+        -2,0,-2,
+        -1,0,-1);
+    Mat x_grad ;
+    filter2D(grey,x_grad,CV_32F ,sobelx_kernel);
+    Mat abs_xgrad;
+    convertScaleAbs(x_grad,abs_xgrad);
+    imwrite("data/results/sobel_x.jpg",abs_xgrad);
+}
+void sobel_y(const string &path){
+    Mat img = imread(path);
+    Mat grey;
+    cvtColor(img,grey,COLOR_BGR2GRAY);
+    Mat sobely_kernel = (Mat_<float>(3,3) << 
+        -1,-2,-1,
+        0,0,0,
+        -1,-2,-1);
+    Mat y_grad;
+    filter2D(grey, y_grad , CV_32F ,sobely_kernel);
+    Mat abs_ygrad;
+    convertScaleAbs(y_grad , abs_ygrad);
+    imwrite("data/results/sobel_y.jpg",abs_ygrad);
+}
+int main(){
+    sobel_x("data/raw/sae.jpg");
+    sobel_y("data/raw/sae.jpg");
+
+}
