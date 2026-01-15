@@ -32,8 +32,28 @@ void sobel_y(const string &path){
     convertScaleAbs(y_grad , abs_ygrad);
     imwrite("data/results/sobel_y.jpg",abs_ygrad);
 }
+void gaussian_smoothing(const string &path){
+    //from defining kernel
+    Mat img = imread(path);
+    Mat gaussian_kernel = (Mat_<float>(5,5) << 1,4,6,4,1,
+                                               4,16,24,16,4,
+                                               6,24,36,24,6,
+                                               4,16,24,16,4,
+                                               1,4,6,4,1) / 250.0;
+    Mat smooth_k;
+    filter2D(img,smooth_k,-1,gaussian_kernel);
+    //from opencv inbuilt function
+    Mat smooth_f;
+    GaussianBlur(img,smooth_f,Size(5,5),1.5,1.5);
+
+    imwrite("data/results/gaussian_k.jpg",smooth_k);
+    imwrite("data/results/gaussian_f.jpg",smooth_f);
+
+
+}
 int main(){
     sobel_x("data/raw/sae.jpg");
     sobel_y("data/raw/sae.jpg");
+    gaussian_smoothing("data/raw/sae.jpg");
 
 }
