@@ -51,9 +51,26 @@ void gaussian_smoothing(const string &path){
 
 
 }
+void sharpen(const string &path){
+    Mat img = imread(path);
+    Mat sharpen_k1 = (Mat_<float>(3,3) << 
+    0,-1,0,
+    -1,5,-1,
+    0,-1,0);
+    Mat sharpen_k2 = (Mat_<float>(3,3) << 
+    -1,-1,-1,
+    -1,9,-1,
+    -1,-1,-1);
+    Mat sharpen1 , sharpen2;
+    filter2D(img,sharpen1,-1,sharpen_k1);
+    filter2D(img,sharpen2,-1,sharpen_k2);
+    imwrite("data/results/sharpen1.jpg",sharpen1); //soft sharpen
+    imwrite("data/results/sharpen2.jpg",sharpen2); //hard sharpen
+}
 int main(){
     sobel_x("data/raw/sae.jpg");
     sobel_y("data/raw/sae.jpg");
     gaussian_smoothing("data/raw/sae.jpg");
+    sharpen("data/raw/sae.jpg");
 
 }
