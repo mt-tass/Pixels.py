@@ -43,6 +43,7 @@ class lightDetector:
                 if area > largest_area:
                     largest_area = area
                     largest_contour = contour
+        print(largest_area)
         if largest_contour is not None:
             Moments = cv.moments(largest_contour)
             if Moments["m00"] != 0:
@@ -85,8 +86,8 @@ class imageOverlay:
 
 cam_idx = 0
 hsv_thresh = 250
-min_area = 100
-max_area = 10000
+min_area = 8500
+max_area = 15000
 scale = 0.7
 cam = getVideo(cam_idx)
 detect = lightDetector(hsv_thresh,min_area,max_area)
